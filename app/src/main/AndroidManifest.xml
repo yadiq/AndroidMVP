@@ -47,6 +47,10 @@
             android:name=".ui.fileupdown.FileUpDownActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.SignatureActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".service.UpdateService"

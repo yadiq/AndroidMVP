@@ -21,7 +21,7 @@ import java.util.Random;
 
 /**
  * ****************************************************************
- * 文件名称: OneFragment
+ * 文件名称: SettingsFragment
  * 作    者: Created by gyd
  * 创建时间: 2019/11/5 10:06
  * 文件描述:
@@ -65,6 +65,11 @@ public class SettingsFragment extends BaseFragment {
             });
             alterDialogUtils.setCancelable(false);
             alterDialogUtils.show();
+        });
+        binding.vSignature.setOnClickListener(v -> {
+            startActivity(new Intent(mContext, SignatureActivity.class));
+
+            //TODO 跳转签名界面
         });
         binding.vLogout.setOnClickListener(v -> {
             SPUtil.getInstance().clear();
