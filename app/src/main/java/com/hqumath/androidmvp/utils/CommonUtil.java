@@ -5,12 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.telephony.TelephonyManager;
-import android.util.Base64;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -18,16 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-
-import java.io.ByteArrayOutputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import static android.content.Context.TELEPHONY_SERVICE;
 
 /**
  * 常用工具类
@@ -62,7 +48,7 @@ public class CommonUtil {
         throw new NullPointerException("should be initialized in application");
     }
 
-    public static void toast(String s){
+    public static void toast(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
