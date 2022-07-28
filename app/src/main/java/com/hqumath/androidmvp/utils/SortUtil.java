@@ -16,20 +16,22 @@ public class SortUtil {
     public static void main(String[] args) {
 
         int[] data = {1, 81, 3, 16, 8, 0, 32, 82, 6, 83, 10, 22, 45, 278, 98, 432, 17, 6, 4, 33, 68, 24, 987, 67, 85, 35};
-
+        int[] result = QuickSort(data);
         //QuickSort(data);
-        int[] result = MergeSort(data);
+        /*int[] result = MergeSort(data);
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < data.length; i++) {
             sb.append(" " + data[i]);
         }
-        System.out.println(sb.toString());
+        System.out.println(sb.toString());*/
 
-        sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         for (int i = 0; i < result.length; i++) {
             sb.append(" " + result[i]);
         }
         System.out.println(sb.toString());
+        int index = BinarySearch(result, 98);
+        System.out.println("序号：" + index);
     }
 
     /**
@@ -100,8 +102,10 @@ public class SortUtil {
      * 快速排序，找基准数->分割成两部分->分别递归
      * 时间复杂度 O(n^2)
      */
-    public static void QuickSort(int[] arr) {
+    public static int[] QuickSort(int[] sourceArray) {
+        int[] arr = Arrays.copyOf(sourceArray, sourceArray.length);
         partition(arr, 0, arr.length - 1);
+        return arr;
     }
 
     /**
@@ -145,7 +149,7 @@ public class SortUtil {
     /**
      * 归并排序，合并两个子序列
      */
-    public static int[] merge(int[] left, int[] right) {
+    private static int[] merge(int[] left, int[] right) {
         int[] result = new int[left.length + right.length];
         int i = 0;
         while (left.length > 0 && right.length > 0) {
@@ -166,5 +170,25 @@ public class SortUtil {
             right = Arrays.copyOfRange(right, 1, right.length);
         }
         return result;
+    }
+
+    /**
+     * 二分查找(有序数组)，比较中值->查找子序列->递归
+     */
+    public static int BinarySearch(int[] arr, int key) {
+        return binarySearch(arr, 0, arr.length - 1, key);
+    }
+
+    private static int binarySearch(int[] arr, int left, int right, int key) {
+        if (left > right)
+            return -1;
+        int mid = left + (right - left) / 2;//直接平均可能会溢出
+        if (key < arr[mid]) {
+            return binarySearch(arr, left, mid - 1, key);
+        } else if (key > arr[mid]) {
+            return binarySearch(arr, mid + 1, right, key);
+        } else {
+            return mid;
+        }
     }
 }
