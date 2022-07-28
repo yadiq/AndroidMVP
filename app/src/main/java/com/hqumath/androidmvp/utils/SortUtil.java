@@ -17,10 +17,17 @@ public class SortUtil {
 
         int[] data = {1, 81, 3, 16, 8, 0, 32, 82, 6, 83, 10, 22, 45, 278, 98, 432, 17, 6, 4, 33, 68, 24, 987, 67, 85, 35};
 
-        QuickSort(data);
+        //QuickSort(data);
+        int[] result = MergeSort(data);
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < data.length; i++) {
             sb.append(" " + data[i]);
+        }
+        System.out.println(sb.toString());
+
+        sb = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            sb.append(" " + result[i]);
         }
         System.out.println(sb.toString());
     }
@@ -97,6 +104,9 @@ public class SortUtil {
         partition(arr, 0, arr.length - 1);
     }
 
+    /**
+     * 快速排序，分割并递归
+     */
     private static void partition(int[] arr, int left, int right) {
         if (left < right) {
             //找基准数的三个方法：固定位置 随机选取 三数取中
@@ -117,5 +127,44 @@ public class SortUtil {
             partition(arr, left, i - 1);
             partition(arr, i + 1, right);
         }
+    }
+
+    /**
+     * 归并排序，分割成两部分->合并处理->递归
+     * 时间复杂度O(n log n)
+     */
+    public static int[] MergeSort(int[] arr) {
+        if (arr.length < 2)
+            return arr;
+        int middle = arr.length / 2;
+        int[] left = Arrays.copyOfRange(arr, 0, middle);//[from, to)
+        int[] right = Arrays.copyOfRange(arr, middle, arr.length);
+        return merge(MergeSort(left), MergeSort(right));
+    }
+
+    /**
+     * 归并排序，合并两个子序列
+     */
+    public static int[] merge(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
+        int i = 0;
+        while (left.length > 0 && right.length > 0) {
+            if (left[0] <= right[0]) {
+                result[i++] = left[0];
+                left = Arrays.copyOfRange(left, 1, left.length);
+            } else {
+                result[i++] = right[0];
+                right = Arrays.copyOfRange(right, 1, right.length);
+            }
+        }
+        while (left.length > 0) {
+            result[i++] = left[0];
+            left = Arrays.copyOfRange(left, 1, left.length);
+        }
+        while (right.length > 0) {
+            result[i++] = right[0];
+            right = Arrays.copyOfRange(right, 1, right.length);
+        }
+        return result;
     }
 }
