@@ -1,12 +1,9 @@
 package com.hqumath.androidmvp.utils;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -63,6 +60,10 @@ public class DialogUtil extends Dialog {
         btnYes = (Button) mView.findViewById(R.id.yes);
         btnNo = (Button) mView.findViewById(R.id.no);
         setContentView(mView);
+        /*Window window = getWindow();
+        if (window != null) {
+            window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);//有软键盘时必须全屏，否则mate40等手机软键盘无法上推
+        }*/
     }
 
     public void setTitle(String title) {
