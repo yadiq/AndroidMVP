@@ -45,7 +45,8 @@ public class HandlerException {
                 case SERVICE_UNAVAILABLE:
                 case GATEWAY_TIMEOUT:
                 default:
-                    ex.setMessage("网络错误");
+                    //ex.setMessage("网络错误");
+                    ex.setMessage("服务器开小差啦(" + httpException.code() + ")");
                     break;
             }
             return ex;
@@ -70,8 +71,8 @@ public class HandlerException {
             ex = new ResponseThrowable(e, ERROR.SSL_ERROR + "");
             ex.setMessage("连接超时");
             return ex;
-        } else if (e instanceof HandlerException.ResponseThrowable) {
-            return (HandlerException.ResponseThrowable) e;
+        } else if (e instanceof ResponseThrowable) {
+            return (ResponseThrowable) e;
         } else {
             ex = new ResponseThrowable(e, ERROR.UNKNOWN + "");
             if (TextUtils.isEmpty(e.getMessage())) {
