@@ -81,7 +81,7 @@ dependencies {
     //implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
     //network
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    //implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'//数据解析器
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'//网络请求适配器

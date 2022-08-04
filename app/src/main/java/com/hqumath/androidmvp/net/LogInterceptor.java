@@ -40,7 +40,10 @@ public class LogInterceptor implements Interceptor {
             if (contentType != null) {
                 charset = contentType.charset(UTF8);
             }
-            LogUtil.d(TAG, buffer.readString(charset), false);
+            String bodyStr = buffer.readString(charset);
+            if (bodyStr.length() > 1500)
+                bodyStr = bodyStr.substring(0, 1500);
+            LogUtil.d(TAG, bodyStr, false);
         }
 
         //响应
