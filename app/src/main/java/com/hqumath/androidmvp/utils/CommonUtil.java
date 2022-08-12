@@ -89,4 +89,10 @@ public class CommonUtil {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue,
                 context.getResources().getDisplayMetrics());
     }
+
+    //部分机型需要传入activity才能适配
+    public static int dp2px(Context context, float dpValue) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue,
+                context.getResources().getDisplayMetrics());
+    }
 }
