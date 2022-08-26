@@ -46,7 +46,7 @@ public class DialogUtil extends Dialog {
      * 默认主要操作弹窗
      */
     public DialogUtil(Context context) {
-        this(context, R.style.dialog_common, R.layout.dialog_common);
+        this(context, R.style.dialog_common, R.layout.dialog_common);//根布局为全屏，否则弹窗为固定大小（接近铺满）
     }
 
     public DialogUtil(Context context, int theme, int messageLayout) {
@@ -60,10 +60,6 @@ public class DialogUtil extends Dialog {
         btnYes = (Button) mView.findViewById(R.id.yes);
         btnNo = (Button) mView.findViewById(R.id.no);
         setContentView(mView);
-        /*Window window = getWindow();
-        if (window != null) {
-            window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);//有软键盘时必须全屏，否则mate40等手机软键盘无法上推
-        }*/
     }
 
     public void setTitle(String title) {
