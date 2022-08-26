@@ -13,7 +13,6 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/dialog_top_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -22,7 +21,7 @@
             android:paddingEnd="15dp">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -33,7 +32,7 @@
                 android:visibility="visible" />
 
             <TextView
-                android:id="@+id/message"
+                android:id="@+id/tvMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
@@ -53,7 +52,7 @@
             android:background="#EAECEE" />
 
         <Button
-            android:id="@+id/oneYes"
+            android:id="@+id/btnOneYes"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@null"
@@ -70,7 +69,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/no"
+                android:id="@+id/btnNo"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -85,7 +84,7 @@
                 android:background="#EAECEE" />
 
             <Button
-                android:id="@+id/yes"
+                android:id="@+id/btnYes"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
