@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -46,7 +48,7 @@ public class DialogUtil extends Dialog {
      * 默认主要操作弹窗
      */
     public DialogUtil(Context context) {
-        this(context, R.style.dialog_common, R.layout.dialog_common);//根布局为全屏，否则弹窗为固定大小（接近铺满）
+        this(context, R.style.dialog_common, R.layout.dialog_common);//根布局会被改为自适应宽高,居中
     }
 
     public DialogUtil(Context context, int theme, int messageLayout) {
@@ -60,6 +62,11 @@ public class DialogUtil extends Dialog {
         btnYes = (Button) mView.findViewById(R.id.yes);
         btnNo = (Button) mView.findViewById(R.id.no);
         setContentView(mView);
+        //根布局为自适应宽高，有软键盘时必须全屏，否则mate40等手机软键盘无法上推
+        /*Window window = getWindow();
+        if (window != null) {
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        }*/
     }
 
     public void setTitle(String title) {
