@@ -17,7 +17,7 @@ public class ByteUtil {
     private static final String TAG = "ByteUtil1";
 
     public static void main(String[] args) {
-        byte[] b1= {0,0,0,1};
+        byte[] b1 = {0, 0, 0, 1};
         int b2 = ByteUtil.bytesToInt32(b1, 0, false);
         System.out.println(b2 + "");
     }
@@ -124,7 +124,7 @@ public class ByteUtil {
     }
 
     /**
-     * 将hex转为byte
+     * 将hex转为byte, 两个十六进制数
      *
      * @param hex char[2]
      */
@@ -133,9 +133,7 @@ public class ByteUtil {
     }
 
     /**
-     * 将hex转为byte[]
-     *
-     * @param hex 注意不要有空格
+     * 将hex转为byte, 2n个十六进制数
      */
     public static byte[] hexToBytes(String hex) {
         hex = hex.replace(" ", "");
@@ -145,38 +143,65 @@ public class ByteUtil {
         int byteLen = hex.length() / 2;
         byte[] result = new byte[byteLen];
         for (int i = 0; i < byteLen; i++) {
-            result[i] = hexToByte(hex.substring(i * 2, i * 2 + 2));
+            result[i] = hexToByte(hex.substring(i * 2, (i + 1) * 2));
         }
         return result;
     }
 
     /**
+     * 将binary转为byte, 八个二进制数
+     *
+     * @param binary char[8]
+     */
+    public static byte binaryToByte(String binary) {
+        return (byte) Integer.parseInt(binary, 2);
+    }
+
+    /**
+     * 将binary转为byte, 8n个二进制数
+     */
+    public static byte[] binaryToBytes(String binary) {
+        binary.replace(" ", "");
+        int byteLen = binary.length() / 8;
+        byte[] result = new byte[byteLen];
+        for (int i = 0; i < byteLen; i++) {
+            result[i] = binaryToByte(binary.substring(i * 8, (i + 1) * 8));
+        }
+        return result;
+    }
+
+
+    /**
      * 将一个长度为8的boolean数组（每bit代表一个boolean值）转换为byte
      *
-     * @param array boolean[8]
+     * @param array        boolean[8]
+     * @param littleEndian 是否小端，低地址存低字节。
      */
-    public static byte booleansToByte(boolean[] array) {
+    public static byte booleansToByte(boolean[] array, boolean littleEndian) {
         byte b = 0;
         if (array != null && array.length == 8) {
             for (int i = 0; i < 8; i++) {
                 if (array[i]) {
-                    b += (1 << (7 - i));
+                    int shift = littleEndian ? i : (7 - i);//需要移位的数量
+                    b += (1 << shift);
                 }
             }
         }
         return b;
     }
     /////////////////////////////byte[]转数值类型////////////////////////////
+
     /**
      * 将byte转为boolean[8]
      *
-     * @param b 1个字节
+     * @param b            1个字节
+     * @param littleEndian 是否小端，低地址存低字节。
      */
-    public static boolean[] byteToBooleans(byte b) {
+    public static boolean[] byteToBooleans(byte b, boolean littleEndian) {
         boolean[] array = new boolean[8];
-        for (int i = 7; i >= 0; i--) { //对于byte的每bit进行判定
-            array[i] = (b & 1) == 1;  //判定byte的最后一位是否为1，若为1，则是true；否则是false
-            b = (byte) (b >> 1);    //将byte右移一位
+        for (int i = 0; i < 8; i++) {
+            int shift = littleEndian ? i : (7 - i);//需要移位的数量
+            array[i] = ((b >> shift) & 1) == 1;
         }
         return array;
     }
@@ -186,7 +211,7 @@ public class ByteUtil {
      *
      * @param b 1个字节
      */
-    public static short byte2Int8(byte b) {
+    public static short byteToInt8(byte b) {
         return (short) (b);
     }
 
@@ -196,7 +221,7 @@ public class ByteUtil {
      * @param b 1个字节
      * @return
      */
-    public static short byte2Uint8(byte b) {
+    public static short byteToUint8(byte b) {
         return (short) (b & 0xff);
     }
 
@@ -341,7 +366,7 @@ public class ByteUtil {
     public static byte makeChecksum(byte[] bytes) {
         int total = 0;
         for (byte aByte : bytes) {
-            total += byte2Uint8(aByte);
+            total += byteToUint8(aByte);
         }
         return (byte) (total & 0xff);//取后8位
     }
@@ -349,5 +374,16 @@ public class ByteUtil {
     //报文前两字节长度
     public static int getMessageLen(byte[] data) {
         return (short) ((data[1] & 0xFF) | (data[0] << 8));
+    }
+
+    /**
+     * 打印boolean[]
+     */
+    public static String booleansToStringWithSpace(boolean[] array) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            sb.append(array[i]).append(" ");
+        }
+        return sb.toString();
     }
 }
