@@ -55,7 +55,7 @@ public class Density {
         }
     }
 
-    private static void setAppOrientation(@Nullable Activity activity) {
+    public static void setAppOrientation(@Nullable Activity activity) {
         float targetDensity = 0;
         try {
             //使用宽高中的最小值计算最小宽度
