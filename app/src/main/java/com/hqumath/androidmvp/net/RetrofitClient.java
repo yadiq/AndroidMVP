@@ -73,8 +73,8 @@ public class RetrofitClient {
     public ApiService getDownloadService(DownloadListener listener) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(connectTimeout, TimeUnit.SECONDS);
-        builder.readTimeout(readTimeout, TimeUnit.SECONDS);
-        builder.writeTimeout(writeTimeout, TimeUnit.SECONDS);
+        //builder.readTimeout(readTimeout, TimeUnit.SECONDS);
+        //builder.writeTimeout(writeTimeout, TimeUnit.SECONDS);
         if (listener != null)
             builder.addInterceptor(new DownloadInterceptor(listener));//下载拦截器（显示进度）
         Retrofit retrofit = new Retrofit.Builder()
