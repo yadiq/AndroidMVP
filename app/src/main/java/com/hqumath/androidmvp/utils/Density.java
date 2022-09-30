@@ -69,7 +69,7 @@ public class Density {
         }
 
         float targetScaledDensity = targetDensity * (appScaledDensity / appDensity);
-        int targetDensityDpi = (int) (160 * targetDensity);
+        int targetDensityDpi = (int) (160 * targetDensity);//TODO 四舍五入
         //最后在这里将修改过后的值赋给系统参数,只修改Activity的density值
         DisplayMetrics activityDisplayMetrics = activity.getResources().getDisplayMetrics();
         activityDisplayMetrics.density = targetDensity;
