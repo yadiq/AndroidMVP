@@ -100,7 +100,7 @@
 
             <ImageView
                 android:id="@+id/ivSignature"
-                android:layout_width="72dp"
+                android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_signature"/>
 
