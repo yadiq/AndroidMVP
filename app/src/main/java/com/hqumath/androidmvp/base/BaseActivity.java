@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.hqumath.androidmvp.utils.Density;
-
 /**
  * ****************************************************************
  * 文件名称: BaseActivity
@@ -39,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Density.setAppOrientation(this);//横竖屏切换后，重新设置density
+        //Density.setAppOrientation(this);//横竖屏切换后，重新设置density
     }
 
     protected abstract View initContentView(Bundle savedInstanceState);
