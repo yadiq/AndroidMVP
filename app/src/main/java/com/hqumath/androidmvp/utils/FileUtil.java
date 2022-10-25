@@ -1,11 +1,14 @@
 package com.hqumath.androidmvp.utils;
 
+import android.os.Environment;
+
 import com.hqumath.androidmvp.net.HandlerException;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.Closeable;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -88,5 +91,33 @@ public class FileUtil {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 读文件
+     */
+    public static void readFileTest() {
+        String dir = Environment.getExternalStorageDirectory().getAbsolutePath();//外部存储 /storage/emulated/0
+        String fileName = dir + "/Download/tempfiles/test.h265";
+        try {
+            File file = new File(fileName);
+            FileInputStream fis = new FileInputStream(file);
+            int length = fis.available();
+            if (length > 8000)
+                length = 8000;
+            byte[] buffer = new byte[length];
+            fis.read(buffer);
+            fis.close();
+
+            int type = (buffer[4] & 0x7e) >> 1;
+            LogUtil.d("type = " + type);
+
+            String msg = ByteUtil.bytesToHexWithSpace(buffer);
+            msg = msg.replace("00 00 00 01 ", "\n");
+            LogUtil.d(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
