@@ -81,7 +81,7 @@ public class RetrofitClient {
                 .client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(Constant.downloadHost)
+                .baseUrl(Constant.baseUrl)//使用哪个域名都可以
                 .build();
         return retrofit.create(ApiService.class);
     }
