@@ -25,6 +25,50 @@ import okhttp3.ResponseBody;
  * ****************************************************************
  */
 public class FileUtil {
+    /**
+     * 获取应用专属内部存储文件 /data/user/0/pacakge/files
+     *
+     * @param dirName  父文件名
+     * @param fileName 子文件名
+     */
+    public static File getFile(String dirName, String fileName) {
+        //父文件目录
+        String dirPath = CommonUtil.getContext().getFilesDir() + File.separator + dirName;
+        File dir = new File(dirPath);
+        if (!dir.exists())
+            dir.mkdirs();
+        //子文件目录
+        String filePath = dirPath + File.separator + fileName;
+        return new File(filePath);
+    }
+
+    /**
+     * 获取应用专属外部存储空间文件 /storage/emulated/0/Android/data/packname/files
+     *
+     * @param dirName  父文件名
+     * @param fileName 子文件名
+     */
+    public static File getExternalFile(String dirName, String fileName) {
+        String filePath = CommonUtil.getContext().getExternalFilesDir(dirName) + File.separator + fileName;
+        return new File(filePath);
+    }
+
+    /**
+     * 获取外部存储空间根目录 /storage/emulated/0/dirname/filename
+     *
+     * @param dirName  父文件名
+     * @param fileName 子文件名
+     */
+    public static File getExternalRootFile(String dirName, String fileName) {
+        //父文件目录
+        String dirPath = Environment.getExternalStorageDirectory() + File.separator + dirName;
+        File dir = new File(dirPath);
+        if (!dir.exists())
+            dir.mkdirs();
+        //子文件目录
+        String filePath = dirPath + File.separator + fileName;
+        return new File(filePath);
+    }
 
     /**
      * 根据url生成文件
@@ -43,22 +87,8 @@ public class FileUtil {
     }
 
     /**
-     * 根据app版本号生成文件
-     */
-    public static File getFileFromVersionName(String version) {
-        //获取文件名称类型
-        String fileNameFromUrl1 = CommonUtil.getContext().getPackageName() + "-" + version;
-        String fileStyle = "apk";//文件类型
-        //生成文件目录
-        File fileDir = CommonUtil.getContext().getExternalFilesDir(fileStyle);
-        if (!fileDir.exists())
-            fileDir.mkdirs();
-        String filePath = fileDir.getAbsolutePath() + "/" + fileNameFromUrl1;
-        return new File(filePath);
-    }
-
-    /**
      * 写文件
+     * @param responseBody 网络传输流
      */
     public static void writeFile(ResponseBody responseBody, File file) {
         BufferedInputStream is = new BufferedInputStream(responseBody.byteStream());
