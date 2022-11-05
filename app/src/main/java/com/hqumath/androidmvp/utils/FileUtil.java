@@ -71,19 +71,13 @@ public class FileUtil {
     }
 
     /**
-     * 根据url生成文件
+     * 根据url下载文件，存储到应用专属外部存储空间
+     * @param url 文件地址
      */
     public static File getFileFromUrl(String url) {
-        //获取文件名称类型
-        String fileNameFromUrl1 = url.substring(url.lastIndexOf("/") + 1);
-        //String fileName = fileNameFromUrl1.substring(0, fileNameFromUrl1.lastIndexOf("."));//文件名
-        String fileStyle = fileNameFromUrl1.substring(fileNameFromUrl1.lastIndexOf(".") + 1);//文件类型
-        //生成文件目录
-        File fileDir = CommonUtil.getContext().getExternalFilesDir(fileStyle);
-        if (!fileDir.exists())
-            fileDir.mkdirs();
-        String filePath = fileDir.getAbsolutePath() + "/" + fileNameFromUrl1;
-        return new File(filePath);
+        String fileName = url.substring(url.lastIndexOf("/") + 1);//文件名 a.mp4
+        String fileStyle = fileName.substring(fileName.lastIndexOf(".") + 1);//文件类型 mp4
+        return getExternalFile(fileStyle, fileName);
     }
 
     /**
