@@ -43,6 +43,16 @@ public class FileUtil {
     }
 
     /**
+     * 获取应用专属内部存储文件-缓存 /data/user/0/pacakge/cache
+     *
+     * @param fileName 文件名
+     */
+    public static File getCacheFile(String fileName) {
+        String filePath = CommonUtil.getContext().getCacheDir() + File.separator + fileName;
+        return new File(filePath);
+    }
+
+    /**
      * 获取应用专属外部存储空间文件 /storage/emulated/0/Android/data/packname/files
      *
      * @param dirName  父文件名
@@ -50,6 +60,16 @@ public class FileUtil {
      */
     public static File getExternalFile(String dirName, String fileName) {
         String filePath = CommonUtil.getContext().getExternalFilesDir(dirName) + File.separator + fileName;
+        return new File(filePath);
+    }
+
+    /**
+     * 获取应用专属外部存储空间文件-缓存 /storage/emulated/0/Android/data/packname/cache
+     *
+     * @param fileName 子文件名
+     */
+    public static File getExternalCacheFile(String fileName) {
+        String filePath = CommonUtil.getContext().getExternalCacheDir() + File.separator + fileName;
         return new File(filePath);
     }
 
@@ -72,16 +92,18 @@ public class FileUtil {
 
     /**
      * 根据url下载文件，存储到应用专属外部存储空间
+     *
      * @param url 文件地址
      */
     public static File getFileFromUrl(String url) {
         String fileName = url.substring(url.lastIndexOf("/") + 1);//文件名 a.mp4
-        String fileStyle = fileName.substring(fileName.lastIndexOf(".") + 1);//文件类型 mp4
-        return getExternalFile(fileStyle, fileName);
+        //String fileStyle = fileName.substring(fileName.lastIndexOf(".") + 1);//文件类型 mp4
+        return getExternalCacheFile(fileName);
     }
 
     /**
      * 写文件
+     *
      * @param responseBody 网络传输流
      */
     public static void writeFile(ResponseBody responseBody, File file) {
