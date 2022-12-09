@@ -5,8 +5,8 @@
     <string name="user_name">UserName</string>
     <string name="password">Password(No check)</string>
     <string name="login">Login</string>
-    <string name="user_name_warning">用户名不正确!</string>
-    <string name="password_warning">密码不正确!</string>
+    <string name="user_name_warning">UserName error!</string>
+    <string name="password_warning">Password error!</string>
 
     <!--navigation-->
     <string name="repos">Repos</string>
