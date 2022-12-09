@@ -70,6 +70,10 @@ public class SettingsFragment extends BaseFragment {
             alterDialogUtils.setCancelable(false);
             alterDialogUtils.show();
         });
+        binding.vMultiLanguage.setOnClickListener(v -> {//多语言
+            Intent intent = new Intent(mContext, MultiLanguageActivity.class);
+            startActivity(intent);
+        });
         binding.vSignature.setOnClickListener(v -> {//签名返回base64
             Intent intent = new Intent(mContext, SignatureActivity.class);
             startActivityForResult(intent, REQUEST_SIGNATURE);

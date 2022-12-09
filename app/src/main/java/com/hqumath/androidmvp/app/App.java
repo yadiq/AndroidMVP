@@ -3,11 +3,16 @@ package com.hqumath.androidmvp.app;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hqumath.androidmvp.utils.CommonUtil;
+import com.hqumath.androidmvp.utils.MultiLanguageUtils;
+import com.hqumath.androidmvp.utils.SPUtil;
+
+import java.util.Locale;
 
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.onAdaptListener;
@@ -30,9 +35,10 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
         //初始化工具类
         CommonUtil.init(this);
+        //生命周期监听回调
+        registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
 
         //异常捕获后重启，umeng等可能无法统计到异常信息
         //CrashHandler myCrashHandler =CrashHandler.getInstance();
@@ -69,6 +75,16 @@ public class App extends Application {
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             //注册监听每个activity的生命周期,便于堆栈式管理
             AppManager.getInstance().addActivity(activity);
+            //多语言切换
+            String language = SPUtil.getInstance().getString(Constant.SP_LANGUAGE,"");
+            String country = SPUtil.getInstance().getString(Constant.SP_COUNTRY,"");
+            if (!TextUtils.isEmpty(language) && !TextUtils.isEmpty(country)) {
+                //强制修改应用语言
+                if (!MultiLanguageUtils.isSameWithSetting(activity)) {
+                    Locale locale = new Locale(language, country);
+                    MultiLanguageUtils.changeAppLanguage(activity, locale, false);
+                }
+            }
         }
 
         @Override
