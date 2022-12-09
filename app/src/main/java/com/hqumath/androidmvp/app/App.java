@@ -5,11 +5,8 @@ import android.app.Application;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.hqumath.androidmvp.utils.CommonUtil;
-import com.hqumath.androidmvp.utils.MultiLanguageUtils;
+import com.hqumath.androidmvp.utils.LanguageUtil;
 import com.hqumath.androidmvp.utils.SPUtil;
 
 import java.util.Locale;
@@ -80,9 +77,9 @@ public class App extends Application {
             String country = SPUtil.getInstance().getString(Constant.SP_COUNTRY,"");
             if (!TextUtils.isEmpty(language) && !TextUtils.isEmpty(country)) {
                 //强制修改应用语言
-                if (!MultiLanguageUtils.isSameWithSetting(activity)) {
+                if (!LanguageUtil.isSameWithSetting(activity)) {
                     Locale locale = new Locale(language, country);
-                    MultiLanguageUtils.changeAppLanguage(activity, locale, false);
+                    LanguageUtil.changeAppLanguage(activity, locale, false);
                 }
             }
         }

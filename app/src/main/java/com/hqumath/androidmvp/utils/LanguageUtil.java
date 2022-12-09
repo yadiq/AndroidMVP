@@ -1,12 +1,9 @@
 package com.hqumath.androidmvp.utils;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.LocaleList;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -32,7 +29,7 @@ import java.util.Locale;
  */
 //public final static String SP_LANGUAGE="SP_LANGUAGE";
 //public final static String SP_COUNTRY="SP_COUNTRY";
-public class MultiLanguageUtils {
+public class LanguageUtil {
     /**
      * 修改应用内语言设置
      *

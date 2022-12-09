@@ -12,7 +12,7 @@ import com.hqumath.androidmvp.base.BaseActivity;
 import com.hqumath.androidmvp.databinding.ActivityMultilanguageBinding;
 import com.hqumath.androidmvp.databinding.LayoutTitleBinding;
 import com.hqumath.androidmvp.ui.login.LoginActivity;
-import com.hqumath.androidmvp.utils.MultiLanguageUtils;
+import com.hqumath.androidmvp.utils.LanguageUtil;
 import com.hqumath.androidmvp.utils.SPUtil;
 
 import java.util.Locale;
@@ -38,17 +38,17 @@ public class MultiLanguageActivity extends BaseActivity {
             int checkedId = binding.rgLanguage.getCheckedRadioButtonId();
             if (checkedId == R.id.rbLanguageAuto) {//跟随系统
                 //获取手机系统语言
-                Locale locale = MultiLanguageUtils.getSystemLanguage().get(0);
+                Locale locale = LanguageUtil.getSystemLanguage().get(0);
                 String language = locale.getLanguage();
                 String country = locale.getCountry();
                 //切换成手机系统语言  例：手机系统是中文则换成中文
-                MultiLanguageUtils.changeLanguage(mContext, language, country);
+                LanguageUtil.changeLanguage(mContext, language, country);
                 //清空SP数据 ，用于当系统切换语言时 应用可以同步保持切换 例：系统转换成英文 则应用语言也会变成英文
-                MultiLanguageUtils.changeLanguage(mContext, null, null);
+                LanguageUtil.changeLanguage(mContext, null, null);
             } else if (checkedId == R.id.rbLanguageZh) {//简体中文
-                MultiLanguageUtils.changeLanguage(mContext, "zh", "CN");
+                LanguageUtil.changeLanguage(mContext, "zh", "CN");
             } else if (checkedId == R.id.rbLanguageEn) {//英文
-                MultiLanguageUtils.changeLanguage(mContext, "en", "US");
+                LanguageUtil.changeLanguage(mContext, "en", "US");
             }//繁体中文 zh TW
 
             //重启app

@@ -31,7 +31,7 @@ public class Constant {
     public static final String APK_URL = "APK_URL";//apk下载地址
     public static final String APK_NAME = "APK_NAME";//apk文件名称
 
-    public final static String SP_LANGUAGE="SP_LANGUAGE";
+    public final static String SP_LANGUAGE="SP_LANGUAGE";//多语言
     public final static String SP_COUNTRY="SP_COUNTRY";
 
 }
