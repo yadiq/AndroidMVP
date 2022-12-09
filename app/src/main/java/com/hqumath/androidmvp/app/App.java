@@ -32,13 +32,12 @@ public class App extends Application {
         setApplication(this);
         //初始化工具类
         CommonUtil.init(this);
-        //屏幕适配方案，根据ui图修改,屏幕最小宽度360dp
-        //Density.setDensity(this, 360f);
 
         //异常捕获后重启，umeng等可能无法统计到异常信息
         //CrashHandler myCrashHandler =CrashHandler.getInstance();
         //myCrashHandler.init(this);
 
+        //屏幕适配方案，根据ui图修改,屏幕最小宽度360dp
         AutoSizeConfig.getInstance()
                 //全局调节 APP 字体大小 1sp=1dp
                 .setPrivateFontScale(1.0f)

@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "com.hqumath.mvpdemo"
         minSdk 21
-        //noinspection ExpiringTargetSdkVersion
+        //noinspection ExpiredTargetSdkVersion
         targetSdk 29
         versionCode 20210902
         versionName "2.1"
