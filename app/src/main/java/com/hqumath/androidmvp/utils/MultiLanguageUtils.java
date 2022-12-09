@@ -34,7 +34,7 @@ import java.util.Locale;
 //public final static String SP_COUNTRY="SP_COUNTRY";
 public class MultiLanguageUtils {
     /**
-     * TODO 1、 修改应用内语言设置
+     * 修改应用内语言设置
      *
      * @param language 语言  zh/en
      * @param area     地区
@@ -49,13 +49,10 @@ public class MultiLanguageUtils {
             Locale newLocale = new Locale(language, area);
             changeAppLanguage(context, newLocale, true);
         }
-        // 重启应用
-//        AppManager.getAppManager().finishAllActivity();
-//        IntentUtils.toActivity(context,MainActivity.Class,true);
     }
 
     /**
-     * TODO 2、更改应用语言
+     * 更新应用语言（核心）
      *
      * @param locale      语言地区
      * @param persistence 是否持久化
@@ -67,7 +64,7 @@ public class MultiLanguageUtils {
         setLanguage(context, locale, configuration);
         resources.updateConfiguration(configuration, metrics);
         if (persistence) {
-            saveLanguageSetting(context, locale);
+            saveLanguageSetting(locale);
         }
     }
 
@@ -84,32 +81,6 @@ public class MultiLanguageUtils {
     }
 
     /**
-     * TODO 3、 跟随系统语言
-     */
-    public static Context attachBaseContext(Context context) {
-        String spLanguage = SPUtil.getInstance().getString(Constant.SP_LANGUAGE, "");
-        String spCountry = SPUtil.getInstance().getString(Constant.SP_COUNTRY, "");
-        Resources resources = context.getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        Configuration configuration = resources.getConfiguration();
-        Locale appLocale = getAppLocale(context);
-        //如果本地有语言信息，以本地为主，如果本地没有使用默认Locale
-        Locale locale = null;
-        if (!TextUtils.isEmpty(spLanguage) && !TextUtils.isEmpty(spCountry)) {
-            if (isSameLocal(appLocale, spLanguage, spCountry)) {
-                locale = appLocale;
-            } else {
-                locale = new Locale(spLanguage, spCountry);
-            }
-        } else {
-            locale = appLocale;
-        }
-        setLanguage(context, locale, configuration);
-        resources.updateConfiguration(configuration, dm);
-        return context;
-    }
-
-    /**
      * 判断sp中和app中的多语言信息是否相同
      */
     public static boolean isSameWithSetting(Context context) {
@@ -122,7 +93,7 @@ public class MultiLanguageUtils {
     }
 
     /**
-     * 判断应用于系统语言是否相同
+     * 判断应用与系统语言是否相同
      */
     public static boolean isSameLocal(Locale appLocale, String sp_language, String sp_country) {
         String appLanguage = appLocale.getLanguage();
@@ -133,7 +104,7 @@ public class MultiLanguageUtils {
     /**
      * 保存多语言信息到sp中
      */
-    public static void saveLanguageSetting(Context context, Locale locale) {
+    public static void saveLanguageSetting(Locale locale) {
         SPUtil.getInstance().put(Constant.SP_LANGUAGE, locale.getLanguage());
         SPUtil.getInstance().put(Constant.SP_COUNTRY, locale.getCountry());
     }
@@ -159,52 +130,4 @@ public class MultiLanguageUtils {
         LocaleListCompat locales = ConfigurationCompat.getLocales(configuration);
         return locales;
     }
-
-    //注册Activity生命周期监听回调，此部分一定加上，因为有些版本不加的话多语言切换不回来
-    //registerActivityLifecycleCallbacks(callbacks);
-    public static Application.ActivityLifecycleCallbacks callbacks = new Application.ActivityLifecycleCallbacks() {
-        @Override
-        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            String language = SPUtil.getInstance().getString(Constant.SP_LANGUAGE, "");
-            String country = SPUtil.getInstance().getString(Constant.SP_COUNTRY, "");
-            if (!TextUtils.isEmpty(language) && !TextUtils.isEmpty(country)) {
-                //强制修改应用语言
-                if (!isSameWithSetting(activity)) {
-                    Locale locale = new Locale(language, country);
-                    changeAppLanguage(activity, locale, false);
-                }
-            }
-        }
-
-        @Override
-        public void onActivityStarted(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivityResumed(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivityPaused(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivityStopped(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-        }
-
-        @Override
-        public void onActivityDestroyed(Activity activity) {
-
-        }
-    };
-
 }
