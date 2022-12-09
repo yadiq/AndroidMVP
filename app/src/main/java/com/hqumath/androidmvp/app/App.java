@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hqumath.androidmvp.utils.CommonUtil;
 
@@ -29,7 +30,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        setApplication(this);
+        registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
         //初始化工具类
         CommonUtil.init(this);
 
@@ -62,42 +63,39 @@ public class App extends Application {
                 });
     }
 
-    public static synchronized void setApplication(@NonNull Application application) {
-        //sInstance = application;
-        //注册监听每个activity的生命周期,便于堆栈式管理
-        application.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+    private ActivityLifecycleCallbacks activityLifecycleCallbacks = new ActivityLifecycleCallbacks() {
 
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                AppManager.getInstance().addActivity(activity);
-            }
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            //注册监听每个activity的生命周期,便于堆栈式管理
+            AppManager.getInstance().addActivity(activity);
+        }
 
-            @Override
-            public void onActivityStarted(Activity activity) {
-            }
+        @Override
+        public void onActivityStarted(Activity activity) {
+        }
 
-            @Override
-            public void onActivityResumed(Activity activity) {
-            }
+        @Override
+        public void onActivityResumed(Activity activity) {
+        }
 
-            @Override
-            public void onActivityPaused(Activity activity) {
-            }
+        @Override
+        public void onActivityPaused(Activity activity) {
+        }
 
-            @Override
-            public void onActivityStopped(Activity activity) {
-            }
+        @Override
+        public void onActivityStopped(Activity activity) {
+        }
 
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-            }
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        }
 
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-                AppManager.getInstance().removeActivity(activity);
-            }
-        });
-    }
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            AppManager.getInstance().removeActivity(activity);
+        }
+    };
 
     /**
      * 获得当前app运行的Application
