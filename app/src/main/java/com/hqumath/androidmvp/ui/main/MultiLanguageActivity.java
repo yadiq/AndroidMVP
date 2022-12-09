@@ -49,7 +49,8 @@ public class MultiLanguageActivity extends BaseActivity {
                 MultiLanguageUtils.changeLanguage(mContext, "zh", "CN");
             } else if (checkedId == R.id.rbLanguageEn) {//英文
                 MultiLanguageUtils.changeLanguage(mContext, "en", "US");
-            }
+            }//繁体中文 zh TW
+
             //重启app
             AppManager.getInstance().clear();
             mContext.startActivity(new Intent(mContext, LoginActivity.class));
