@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    <paths>-->
+    <!--        <external-path-->
+    <!--            name="myFile"-->
+    <!--            path="" />-->
+    <!--    </paths>-->
+    <!--    <paths>-->
+    <!--        <external-path-->
+    <!--            name="my_images"-->
+    <!--            path="Pictures" />-->
+    <!--    </paths>-->
+
+    <!--    &lt;!&ndash;存储卡的Pictures目录放图片文件&ndash;&gt;-->
+    <!--    <external-path-->
+    <!--        name="my_images"-->
+    <!--        path="Pictures"/>-->
+    <!--    &lt;!&ndash;存储卡的flyaudiosmart2019/apk目录放安装包文件&ndash;&gt;-->
+    <!--    <external-path-->
+    <!--        name="my_download"-->
+    <!--        path="flyaudiosmart2019/apk"/>-->
+
+    <!--注意声明各个目录的用处，FileProvider使用-->
+
+
+    <!--代表设备的根目录new File("/");-->
+    <root-path
+        name="root"
+        path="" />
+    <!--代表context.getFilesDir()-->
+    <files-path
+        name="files"
+        path="" />
+    <!--代表context.getCacheDir()-->
+    <cache-path
+        name="cache"
+        path="" />
+    <!--代表Environment.getExternalStorageDirectory()-->
+    <external-path
+        name="external"
+        path="" />
+    <!--代表context.getExternalFilesDirs()-->
+    <external-files-path
+        name="external-files"
+        path="" />
+    <!--代表getExternalCacheDirs()-->
+    <external-cache-path
+        name="external-cache"
+        path="" />
+
+</resources>

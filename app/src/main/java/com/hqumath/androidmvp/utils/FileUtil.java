@@ -1,11 +1,6 @@
 package com.hqumath.androidmvp.utils;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 
 import com.hqumath.androidmvp.net.HandlerException;
 
@@ -59,23 +54,34 @@ public class FileUtil {
 
     /**
      * 获取应用专属外部存储空间文件 /storage/emulated/0/Android/data/packname/files
+     * 并检查sd卡是否可用
      *
      * @param dirName  父文件名
      * @param fileName 子文件名
      */
     public static File getExternalFile(String dirName, String fileName) {
-        String filePath = CommonUtil.getContext().getExternalFilesDir(dirName) + File.separator + fileName;
-        return new File(filePath);
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
+            String filePath = CommonUtil.getContext().getExternalFilesDir(dirName) + File.separator + fileName;
+            return new File(filePath);
+        } else {
+            return getFile(dirName, fileName);
+        }
     }
 
     /**
      * 获取应用专属外部存储空间文件-缓存 /storage/emulated/0/Android/data/packname/cache
+     * 并检查sd卡是否可用
      *
      * @param fileName 子文件名
      */
     public static File getExternalCacheFile(String fileName) {
-        String filePath = CommonUtil.getContext().getExternalCacheDir() + File.separator + fileName;
-        return new File(filePath);
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
+            String filePath = CommonUtil.getContext().getExternalCacheDir() + File.separator + fileName;
+            return new File(filePath);
+        } else {
+            return getCacheFile(fileName);
+        }
+
     }
 
     /**

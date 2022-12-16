@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
 import com.hqumath.androidmvp.base.BaseActivity;
@@ -28,14 +29,16 @@ import java.io.File;
 import java.io.InputStream;
 
 public class FileUpDownActivity extends BaseActivity implements FileUpDownPresenter.Contract {
-    private final int REQUEST_PIC = 0x01;//相册选图
-    private final int REQUEST_CROP = 0x02;//图片裁剪
+    private final int REQUEST_CAMERA = 0x01;//图片裁剪
+    private final int REQUEST_PIC = 0x02;//相册选图
+    private final int REQUEST_CROP = 0x03;//图片裁剪
     public final static String url = "http://cps.yingyonghui.com/cps/yyh/channel/ac.union.m2/com.yingyonghui.market_1_30063293.apk";
 
     private ActivityFileupdownBinding binding;
     private FileUpDownPresenter mPresenter;
     private DownloadingDialog mDownloadingDialog;
 
+    private Uri cameraUri;//拍照临时文件
     private Uri cropUri;//剪裁时临时文件
 
     @Override
@@ -73,6 +76,49 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
                         }
                     }).start();
         });
+        binding.btnCamera.setOnClickListener(v -> {
+            AndPermission.with(mContext)
+                    .runtime()
+                    .permission(Permission.CAMERA)
+                    .onGranted((permissions) -> {
+                        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {//android10分区存储
+                            ContentValues values = new ContentValues(2);
+                            values.put(MediaStore.Images.Media.DISPLAY_NAME, "photo_" + System.currentTimeMillis());
+                            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
+                                cameraUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                            } else {
+                                cameraUri = getContentResolver().insert(MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
+                            }
+                        } else {
+                            File cameraFile = FileUtil.getExternalCacheFile("camera.jpg");
+                            if (cameraFile.exists()) {
+                                cameraFile.delete();
+                            }
+                            cameraUri = Uri.fromFile(cameraFile);
+                        }*/
+
+                        File cameraFile = FileUtil.getExternalCacheFile("photo.jpg");
+                        if (cameraFile.exists()) {
+                            cameraFile.delete();
+                        }
+                        if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.N){
+                            cameraUri = FileProvider.getUriForFile(mContext, "com.hqumath.androidmvp.fileprovider",cameraFile);
+                        }else {
+                            cameraUri = Uri.fromFile(cameraFile);
+                        }
+
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
+                        startActivityForResult(intent, REQUEST_CAMERA);
+                    })
+                    .onDenied((permissions) -> {
+                        if (AndPermission.hasAlwaysDeniedPermission(mContext, permissions)) {
+                            PermissionUtil.showSettingDialog(mContext, permissions);
+                        }
+                    }).start();
+        });
     }
 
     @Override
@@ -96,10 +142,14 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case REQUEST_CAMERA://拍照
+                    if (cameraUri != null) {
+                        cropPhoto(cameraUri, true);//图片裁剪
+                    }
+                    break;
                 case REQUEST_PIC://相册选图
                     if (data != null && data.getData() != null) {
-                        //裁剪图片
-                        cropPhoto(data.getData(), false);
+                        cropPhoto(data.getData(), false);//图片裁剪
                     }
                     break;
                 case REQUEST_CROP://图片裁剪
@@ -191,12 +241,7 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
                 cropUri = getContentResolver().insert(MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
             }
         } else {
-            File cropFile;
-            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
-                cropFile = FileUtil.getExternalCacheFile("crop.jpg");
-            } else {
-                cropFile = FileUtil.getCacheFile("crop.jpg");
-            }
+            File cropFile = FileUtil.getExternalCacheFile("crop.jpg");
             if (cropFile.exists()) {
                 cropFile.delete();
             }

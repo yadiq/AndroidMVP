@@ -51,12 +51,7 @@ public class ImageUtil {
             }
         }
         //存储文件
-        File compressFile;
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
-            compressFile = FileUtil.getExternalCacheFile("compress.jpg");
-        } else {
-            compressFile = FileUtil.getCacheFile("compress.jpg");
-        }
+        File compressFile = FileUtil.getExternalCacheFile("compress.jpg");
         if (compressFile.exists()) {
             compressFile.delete();
         }
