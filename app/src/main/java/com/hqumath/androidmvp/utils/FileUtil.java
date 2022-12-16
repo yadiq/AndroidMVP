@@ -129,7 +129,7 @@ public class FileUtil {
         }
     }
 
-    private static void closeStream(Closeable closeable) {
+    public static void closeStream(Closeable closeable) {
         if (closeable != null) {
             try {
                 closeable.close();

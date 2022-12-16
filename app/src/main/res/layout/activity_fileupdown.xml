@@ -20,7 +20,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="70dp"
         android:orientation="vertical">
 
         <Button
@@ -30,7 +30,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="download" />
+            android:text="Download File" />
 
         <Button
             android:id="@+id/btnUpload"
@@ -39,7 +39,25 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="upload" />
+            android:text="Upload File" />
+
+        <Button
+            android:id="@+id/btnSelectPic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Select Picture" />
+
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/ivPic"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
 </RelativeLayout>
