@@ -81,35 +81,16 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
                     .runtime()
                     .permission(Permission.CAMERA)
                     .onGranted((permissions) -> {
-                        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {//android10分区存储
-                            ContentValues values = new ContentValues(2);
-                            values.put(MediaStore.Images.Media.DISPLAY_NAME, "photo_" + System.currentTimeMillis());
-                            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
-                                cameraUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                            } else {
-                                cameraUri = getContentResolver().insert(MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
-                            }
-                        } else {
-                            File cameraFile = FileUtil.getExternalCacheFile("camera.jpg");
-                            if (cameraFile.exists()) {
-                                cameraFile.delete();
-                            }
-                            cameraUri = Uri.fromFile(cameraFile);
-                        }*/
-
                         File cameraFile = FileUtil.getExternalCacheFile("photo.jpg");
                         if (cameraFile.exists()) {
                             cameraFile.delete();
                         }
-                        if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.N){
-                            cameraUri = FileProvider.getUriForFile(mContext, "com.hqumath.androidmvp.fileprovider",cameraFile);
-                        }else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            cameraUri = FileProvider.getUriForFile(mContext, "com.hqumath.androidmvp.fileprovider", cameraFile);
+                        } else {
                             cameraUri = Uri.fromFile(cameraFile);
                         }
-
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
                         startActivityForResult(intent, REQUEST_CAMERA);
                     })

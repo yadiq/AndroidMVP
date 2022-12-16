@@ -51,10 +51,7 @@ public class ImageUtil {
             }
         }
         //存储文件
-        File compressFile = FileUtil.getExternalCacheFile("compress.jpg");
-        if (compressFile.exists()) {
-            compressFile.delete();
-        }
+        File compressFile = FileUtil.getExternalCacheFile("compress" + System.currentTimeMillis() + ".jpg");
         try {
             FileOutputStream fos = new FileOutputStream(compressFile);
             fos.write(baos.toByteArray());
