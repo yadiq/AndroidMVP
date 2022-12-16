@@ -1,5 +1,8 @@
 package com.hqumath.androidmvp.utils;
 
+import android.content.ContentValues;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 
 import com.hqumath.androidmvp.net.HandlerException;
@@ -175,5 +178,26 @@ public class FileUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Uri getUriFromFile (File file) {
+//        Uri uri = null;
+//        try {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                ContentValues contentValues = new ContentValues();
+//                contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+//                contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, file.getName());
+//                contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+//                fileUri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+//            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                fileUri = getUriForFile24(context, file);
+//            } else {
+//                fileUri = Uri.fromFile(file);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return uri;
+        return null;
     }
 }
