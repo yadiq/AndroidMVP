@@ -2,9 +2,12 @@ package com.hqumath.androidmvp.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class ImageUtil {
 
@@ -25,4 +28,49 @@ public class ImageUtil {
         }
         return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
+
+    /**
+     * 图片压缩到指定大小
+     *
+     * @param bitmap  原图片
+     * @param maxSize 图片大小KB
+     * @return
+     */
+    public static File compressImage(Bitmap bitmap, int maxSize) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > maxSize) {  //循环判断如果压缩后图片是否大于 maxSize kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            options -= 10;//每次都减少10
+            if (options == 0) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 5, baos);//这里压缩options%，把压缩后的数据存放到baos中
+                break;
+            } else {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            }
+        }
+        //存储文件
+        File compressFile;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
+            compressFile = FileUtil.getExternalCacheFile("compress.jpg");
+        } else {
+            compressFile = FileUtil.getCacheFile("compress.jpg");
+        }
+        if (compressFile.exists()) {
+            compressFile.delete();
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(compressFile);
+            fos.write(baos.toByteArray());
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bitmap.recycle();
+        return compressFile;
+    }
+
+
 }

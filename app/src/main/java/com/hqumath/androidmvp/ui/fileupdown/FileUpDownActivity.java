@@ -13,10 +13,12 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.hqumath.androidmvp.base.BaseActivity;
 import com.hqumath.androidmvp.databinding.ActivityFileupdownBinding;
 import com.hqumath.androidmvp.utils.CommonUtil;
 import com.hqumath.androidmvp.utils.FileUtil;
+import com.hqumath.androidmvp.utils.ImageUtil;
 import com.hqumath.androidmvp.utils.PermissionUtil;
 import com.hqumath.androidmvp.widget.DownloadingDialog;
 import com.yanzhenjie.permission.AndPermission;
@@ -98,37 +100,23 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
                     if (data != null && data.getData() != null) {
                         //裁剪图片
                         cropPhoto(data.getData(), false);
-                        //显示图片
-                        /*InputStream inputStream = null;
-                        try {
-                            inputStream = getContentResolver().openInputStream(data.getData());
-                            Bitmap mBitmap = BitmapFactory.decodeStream(inputStream);
-                            binding.ivPic.setImageBitmap(mBitmap);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            FileUtil.closeStream(inputStream);
-                        }*/
                     }
                     break;
                 case REQUEST_CROP://图片裁剪
-                    //String picturePath = FileUtil.getRealFilePath(mContext, cropUri);
                     //显示图片
                     InputStream inputStream = null;
                     try {
                         inputStream = getContentResolver().openInputStream(cropUri);
                         Bitmap mBitmap = BitmapFactory.decodeStream(inputStream);
-                        //File file = StringUtils.compressImage(mBitmap, 50);//图片压缩
-                        binding.ivPic.setImageBitmap(mBitmap);
+                        //binding.ivPic.setImageBitmap(mBitmap);//图片查看
+                        File file = ImageUtil.compressImage(mBitmap, 50);//图片压缩
+                        Glide.with(mContext).load(file.getAbsoluteFile()).into(binding.ivPic);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
                         FileUtil.closeStream(inputStream);
                     }
                     break;
-            }
-            if (requestCode == REQUEST_PIC) {//相册
-
             }
         }
     }
