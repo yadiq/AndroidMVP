@@ -8,13 +8,13 @@ plugins {
 //keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdk 29
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.hqumath.mvpdemo"
         minSdk 21
         //noinspection ExpiredTargetSdkVersion
-        targetSdk 29
+        targetSdk 31
         versionCode 20210902
         versionName "2.1"
         //multiDexEnabled true
