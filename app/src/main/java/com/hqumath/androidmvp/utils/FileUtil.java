@@ -1,14 +1,7 @@
 package com.hqumath.androidmvp.utils;
 
-import android.content.ContentValues;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.provider.MediaStore;
 
-import androidx.core.content.FileProvider;
-
-import com.hqumath.androidmvp.BuildConfig;
 import com.hqumath.androidmvp.net.HandlerException;
 
 import java.io.BufferedInputStream;
@@ -182,36 +175,5 @@ public class FileUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 根据file生成uri
-     *
-     * @param file   文件
-     * @param isCrop 是否调用系统裁剪（不支持FileProvider.getUriForFile）
-     *               Android7.0以上手机调用系统裁剪提示“无法保存经过裁剪的图片”
-     * @return 生成的uri
-     */
-    public static Uri getUriFromFile(File file, boolean isCrop) {
-        Uri uri = null;
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {//android10 分区存储
-                ContentValues values = new ContentValues(2);
-                values.put(MediaStore.Images.Media.DISPLAY_NAME, file.getName());
-                values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
-                    uri = CommonUtil.getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                } else {
-                    uri = CommonUtil.getContext().getContentResolver().insert(MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
-                }
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !isCrop) {//android7 私有文件安全性
-                uri = FileProvider.getUriForFile(CommonUtil.getContext(), BuildConfig.APPLICATION_ID + ".FileProvider", file);
-            } else {
-                uri = Uri.fromFile(file);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return uri;
     }
 }

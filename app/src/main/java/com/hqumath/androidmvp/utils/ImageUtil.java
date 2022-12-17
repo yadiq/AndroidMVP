@@ -1,13 +1,32 @@
 package com.hqumath.androidmvp.utils;
 
+import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Base64;
+
+import androidx.core.content.FileProvider;
+
+import com.hqumath.androidmvp.BuildConfig;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
+/**
+ * ****************************************************************
+ * 文件名称: ImageUtil
+ * 作    者: Created by gyd
+ * 创建时间: 2019/3/1 14:35
+ * 文件描述: 图片管理
+ * 注意事项:
+ * 版权声明:
+ * ****************************************************************
+ */
 public class ImageUtil {
 
     public static String imageToBase64(Bitmap bitmap, int quality) {
@@ -61,5 +80,37 @@ public class ImageUtil {
         }
         bitmap.recycle();
         return compressFile;
+    }
+
+
+    /**
+     * 根据file生成uri
+     *
+     * @param file   文件
+     * @param isCrop 是否调用系统裁剪（不支持FileProvider.getUriForFile）
+     *               Android7.0以上手机调用系统裁剪提示“无法保存经过裁剪的图片”
+     * @return 生成的uri
+     */
+    public static Uri getUriFromFile(File file, boolean isCrop) {
+        Uri uri = null;
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {//android10 分区存储
+                ContentValues values = new ContentValues(2);
+                values.put(MediaStore.Images.Media.DISPLAY_NAME, file.getName());
+                values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
+                    uri = CommonUtil.getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                } else {
+                    uri = CommonUtil.getContext().getContentResolver().insert(MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !isCrop) {//android7 私有文件安全性
+                uri = FileProvider.getUriForFile(CommonUtil.getContext(), BuildConfig.APPLICATION_ID + ".FileProvider", file);
+            } else {
+                uri = Uri.fromFile(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return uri;
     }
 }

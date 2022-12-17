@@ -85,7 +85,7 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
                         if (cameraFile.exists()) {
                             cameraFile.delete();
                         }
-                        cameraUri = FileUtil.getUriFromFile(cameraFile, false);
+                        cameraUri = ImageUtil.getUriFromFile(cameraFile, false);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
                         startActivityForResult(intent, REQUEST_CAMERA);
@@ -212,7 +212,7 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
         if (cropFile.exists()) {
             cropFile.delete();
         }
-        cropUri = FileUtil.getUriFromFile(cropFile, true);
+        cropUri = ImageUtil.getUriFromFile(cropFile, true);
 
         Intent intent = new Intent("com.android.camera.action.CROP");
         if (fromCamera) {
