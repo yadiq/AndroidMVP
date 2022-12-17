@@ -72,7 +72,7 @@
         <!--使用content://Uri格式的URI替代file://Uri-->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.hqumath.androidmvp.fileprovider"
+            android:authorities="com.hqumath.mvpdemo.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

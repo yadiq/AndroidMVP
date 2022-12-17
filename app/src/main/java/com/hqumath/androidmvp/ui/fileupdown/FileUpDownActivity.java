@@ -81,15 +81,11 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
                     .runtime()
                     .permission(Permission.CAMERA)
                     .onGranted((permissions) -> {
-                        File cameraFile = FileUtil.getExternalCacheFile("photo.jpg");
+                        File cameraFile = FileUtil.getExternalCacheFile("photo_" + System.currentTimeMillis() + ".jpg");
                         if (cameraFile.exists()) {
                             cameraFile.delete();
                         }
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            cameraUri = FileProvider.getUriForFile(mContext, "com.hqumath.androidmvp.fileprovider", cameraFile);
-                        } else {
-                            cameraUri = Uri.fromFile(cameraFile);
-                        }
+                        cameraUri = FileUtil.getUriFromFile(cameraFile, false);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
                         startActivityForResult(intent, REQUEST_CAMERA);
@@ -212,22 +208,11 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
 
     private void cropPhoto(Uri srcUri, boolean fromCamera) {
         //剪裁时临时文件
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {//android10分区存储
-            ContentValues values = new ContentValues(2);
-            values.put(MediaStore.Images.Media.DISPLAY_NAME, "photo_" + System.currentTimeMillis());
-            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {//SD卡是否可用
-                cropUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-            } else {
-                cropUri = getContentResolver().insert(MediaStore.Images.Media.INTERNAL_CONTENT_URI, values);
-            }
-        } else {
-            File cropFile = FileUtil.getExternalCacheFile("crop.jpg");
-            if (cropFile.exists()) {
-                cropFile.delete();
-            }
-            cropUri = Uri.fromFile(cropFile);
+        File cropFile = FileUtil.getExternalCacheFile("crop_" + System.currentTimeMillis() + ".jpg");
+        if (cropFile.exists()) {
+            cropFile.delete();
         }
+        cropUri = FileUtil.getUriFromFile(cropFile, true);
 
         Intent intent = new Intent("com.android.camera.action.CROP");
         if (fromCamera) {

@@ -2,7 +2,6 @@ package com.hqumath.androidmvp.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
@@ -63,6 +62,4 @@ public class ImageUtil {
         bitmap.recycle();
         return compressFile;
     }
-
-
 }
