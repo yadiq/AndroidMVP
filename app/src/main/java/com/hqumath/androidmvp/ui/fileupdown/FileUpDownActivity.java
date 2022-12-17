@@ -82,9 +82,6 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
                     .permission(Permission.CAMERA)
                     .onGranted((permissions) -> {
                         File cameraFile = FileUtil.getExternalCacheFile("photo_" + System.currentTimeMillis() + ".jpg");
-                        if (cameraFile.exists()) {
-                            cameraFile.delete();
-                        }
                         cameraUri = ImageUtil.getUriFromFile(cameraFile, false);
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
@@ -209,9 +206,6 @@ public class FileUpDownActivity extends BaseActivity implements FileUpDownPresen
     private void cropPhoto(Uri srcUri, boolean fromCamera) {
         //剪裁时临时文件
         File cropFile = FileUtil.getExternalCacheFile("crop_" + System.currentTimeMillis() + ".jpg");
-        if (cropFile.exists()) {
-            cropFile.delete();
-        }
         cropUri = ImageUtil.getUriFromFile(cropFile, true);
 
         Intent intent = new Intent("com.android.camera.action.CROP");
