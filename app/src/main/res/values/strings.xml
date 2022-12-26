@@ -2,11 +2,11 @@
     <string name="app_name">MVPDemo</string>
 
     <!--登录界面-->
-    <string name="user_name">用户名</string>
-    <string name="password">密码(不校验)</string>
-    <string name="login">登录</string>
-    <string name="user_name_warning">用户名不正确!</string>
-    <string name="password_warning">密码不正确!</string>
+    <string name="user_name">UserName</string>
+    <string name="password">Password(No check)</string>
+    <string name="login">Login</string>
+    <string name="user_name_warning">UserName error!</string>
+    <string name="password_warning">Password error!</string>
 
     <!--navigation-->
     <string name="repos">Repos</string>
@@ -48,12 +48,12 @@
         <attr name="text_color" format="color" />
         <attr name="center_text" format="string" />
         <attr name="show_views">-->
-            <!--二进制或运算表示多个条件-->
-            <!--<flag name="left_img" value="0b1" />
-            <flag name="center_text" value="0b10" />
-            <flag name="right_img" value="0b100" />
-        </attr>
-    </declare-styleable>-->
+    <!--二进制或运算表示多个条件-->
+    <!--<flag name="left_img" value="0b1" />
+    <flag name="center_text" value="0b10" />
+    <flag name="right_img" value="0b100" />
+</attr>
+</declare-styleable>-->
 
 
 </resources>

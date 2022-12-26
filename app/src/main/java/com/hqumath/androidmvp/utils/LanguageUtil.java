@@ -16,35 +16,23 @@ import com.hqumath.androidmvp.app.Constant;
 import java.util.Locale;
 
 /**
- * Todo 多语言设置
+ * 多语言切换
  * 来自：https://blog.csdn.net/m0_38074457/article/details/84993366
- * 使用步骤：
- * 1、Application中onCreate添加registerActivityLifecycleCallbacks(MultiLanguageUtils.callbacks);
- *
- * @Override protected void attachBaseContext(Context base) {
- * //系统语言等设置发生改变时会调用此方法，需要要重置app语言
- * super.attachBaseContext(MultiLanguageUtils.attachBaseContext(base));
- * }
- * 2、改变应用语言调用MultiLanguageUtils.changeLanguage(activity,type,type);
  */
-//public final static String SP_LANGUAGE="SP_LANGUAGE";
-//public final static String SP_COUNTRY="SP_COUNTRY";
 public class LanguageUtil {
+    public static final String DEFAULT_LANGUAGE = "en";//应用缺省的语言-英语
+    public static final String DEFAULT_COUNTRY = "US";
+
     /**
-     * 修改应用内语言设置
+     * 更新应用语言，当应用语言与SP中存储的语言不相同时
      *
-     * @param language 语言  zh/en
-     * @param area     地区
+     * @param context
      */
-    public static void changeLanguage(Context context, String language, String area) {
-        if (TextUtils.isEmpty(language) && TextUtils.isEmpty(area)) {
-            //如果语言和地区都是空，那么跟随系统s
-            SPUtil.getInstance().put(Constant.SP_LANGUAGE, "");
-            SPUtil.getInstance().put(Constant.SP_COUNTRY, "");
-        } else {
-            //不为空，那么修改app语言，并true是把语言信息保存到sp中，false是不保存到sp中
-            Locale newLocale = new Locale(language, area);
-            changeAppLanguage(context, newLocale, true);
+    public static void changeAppLanguageOnDifferent(Context context) {
+        String language = SPUtil.getInstance().getString(Constant.SP_LANGUAGE, DEFAULT_LANGUAGE);
+        String country = SPUtil.getInstance().getString(Constant.SP_COUNTRY, DEFAULT_COUNTRY);
+        if (!LanguageUtil.isSameWithSetting(context, language, country)) {
+            LanguageUtil.changeAppLanguage(context, new Locale(language, country), false);
         }
     }
 
@@ -80,12 +68,10 @@ public class LanguageUtil {
     /**
      * 判断sp中和app中的多语言信息是否相同
      */
-    public static boolean isSameWithSetting(Context context) {
+    public static boolean isSameWithSetting(Context context, String sp_language, String sp_country) {
         Locale locale = getAppLocale(context);
         String language = locale.getLanguage();
         String country = locale.getCountry();
-        String sp_language = SPUtil.getInstance().getString(Constant.SP_LANGUAGE, "");
-        String sp_country = SPUtil.getInstance().getString(Constant.SP_COUNTRY, "");
         return language.equals(sp_language) && country.equals(sp_country);
     }
 

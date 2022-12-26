@@ -73,15 +73,7 @@ public class App extends Application {
             //注册监听每个activity的生命周期,便于堆栈式管理
             AppManager.getInstance().addActivity(activity);
             //多语言切换
-            String language = SPUtil.getInstance().getString(Constant.SP_LANGUAGE,"");
-            String country = SPUtil.getInstance().getString(Constant.SP_COUNTRY,"");
-            if (!TextUtils.isEmpty(language) && !TextUtils.isEmpty(country)) {
-                //强制修改应用语言
-                if (!LanguageUtil.isSameWithSetting(activity)) {
-                    Locale locale = new Locale(language, country);
-                    LanguageUtil.changeAppLanguage(activity, locale, false);
-                }
-            }
+            LanguageUtil.changeAppLanguageOnDifferent(activity);
         }
 
         @Override
