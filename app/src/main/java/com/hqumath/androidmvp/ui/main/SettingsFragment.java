@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
+import com.hqumath.androidmvp.R;
 import com.hqumath.androidmvp.app.Constant;
 import com.hqumath.androidmvp.base.BaseFragment;
 import com.hqumath.androidmvp.databinding.FragmentSettingsBinding;
@@ -59,7 +60,7 @@ public class SettingsFragment extends BaseFragment {
             SPUtil.getInstance().put(Constant.APK_URL, FileUpDownActivity.url);
             SPUtil.getInstance().put(Constant.APK_NAME, "AndroidMVP V2.0");
             DialogUtil alterDialogUtils = new DialogUtil(mContext);
-            alterDialogUtils.setTitle("新版本V2.0");
+            alterDialogUtils.setTitle(getString(R.string.new_version));
             alterDialogUtils.setMessage("适配 Android 11");
             alterDialogUtils.setTwoConfirmBtn("立即更新", v1 -> {
                 toast("已在后台下载");

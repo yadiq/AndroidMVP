@@ -17,6 +17,9 @@
     <!--设置界面-->
     <string name="new_version">New Version V2.0</string>
 
+    <!--文件操作界面-->
+    <string name="file_operation">File Operation</string>
+
 
 
     <!--权限获取-->
