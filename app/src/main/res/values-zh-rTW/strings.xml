@@ -8,11 +8,17 @@
     <string name="user_name_warning">用户名不正确!</string>
     <string name="password_warning">密码不正确!</string>
 
-    <!--navigation-->
+    <!--主界面-->
     <string name="repos">倉庫</string>
     <string name="follow">跟隨</string>
     <string name="settings">設置</string>
     <string name="about">關於</string>
+
+    <!--设置界面-->
+    <string name="new_version">新軟件V2.0</string>
+
+
+
 
     <!--权限获取-->
     <string name="permission_title">提示</string>

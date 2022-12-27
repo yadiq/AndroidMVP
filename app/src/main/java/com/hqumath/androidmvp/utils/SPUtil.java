@@ -15,36 +15,26 @@ import java.util.Set;
  */
 public class SPUtil {
 
-    private static Map<String, SPUtil> sSPMap = new HashMap<>();
+    private static final String SHARED_PATH = "app_info";
+    private static SPUtil helper;
     private SharedPreferences sp;
 
-    /**
-     * 获取SP实例
-     *
-     * @return {@link SPUtil}
-     */
-    public static SPUtil getInstance() {
-        return getInstance("");
-    }
-
-    /**
-     * 获取SP实例
-     *
-     * @param spName sp名
-     * @return {@link SPUtil}
-     */
-    public static SPUtil getInstance(String spName) {
-        if (isSpace(spName)) spName = "spUtils";
-        SPUtil sp = sSPMap.get(spName);
-        if (sp == null) {
-            sp = new SPUtil(spName);
-            sSPMap.put(spName, sp);
+    public static SPUtil getInstance(Context context) {
+        if (helper == null) {
+            helper = new SPUtil(context);
         }
-        return sp;
+        return helper;
     }
 
-    private SPUtil(final String spName) {
-        sp = CommonUtil.getContext().getSharedPreferences(spName, Context.MODE_PRIVATE);
+    public static SPUtil getInstance() {
+        if (helper == null) {
+            helper = new SPUtil(CommonUtil.getContext());
+        }
+        return helper;
+    }
+
+    private SPUtil(Context context) {
+        sp = context.getSharedPreferences(SHARED_PATH, Context.MODE_PRIVATE);
     }
 
     /**

@@ -47,7 +47,7 @@ public class MultiLanguageUtil {
      * @return
      */
     public Locale getLanguageLocale(Context context) {
-        int languageType = SPUtil.getInstance().getInt(Constant.LANGUAGE, LanguageType.LANGUAGE_EN);
+        int languageType = SPUtil.getInstance(context).getInt(Constant.LANGUAGE, LanguageType.LANGUAGE_EN);
         Locale locale = Locale.ENGLISH;
         if (languageType == LanguageType.LANGUAGE_EN) {
             locale = Locale.ENGLISH;
@@ -66,7 +66,7 @@ public class MultiLanguageUtil {
      * @param languageType
      */
     public void updateLanguage(Context context, int languageType) {
-        SPUtil.getInstance().put(Constant.LANGUAGE, languageType);
+        SPUtil.getInstance(context).put(Constant.LANGUAGE, languageType);
         setConfiguration(context);
     }
 

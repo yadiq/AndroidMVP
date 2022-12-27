@@ -2,9 +2,12 @@ package com.hqumath.androidmvp.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.hqumath.androidmvp.utils.CommonUtil;
+import com.hqumath.androidmvp.utils.MultiLanguageUtil;
 
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.onAdaptListener;
@@ -67,8 +70,6 @@ public class App extends Application {
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             //注册监听每个activity的生命周期,便于堆栈式管理
             AppManager.getInstance().addActivity(activity);
-            //多语言切换
-            //LanguageUtil.changeAppLanguageOnDifferent(activity);
         }
 
         @Override
@@ -97,19 +98,14 @@ public class App extends Application {
         }
     };
 
-    /**
-     * 获得当前app运行的Application
-     */
-    /*public static Application getInstance() {
-        if (sInstance == null) {
-            throw new NullPointerException("please inherit BaseApplication or call setApplication.");
-        }
-        return sInstance;
-    }*/
-
-    /*@Override
+    @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);//方法数超过65k
-    }*/
+        super.attachBaseContext(MultiLanguageUtil.attachBaseContext(base));//多语言
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        MultiLanguageUtil.getInstance().setConfiguration(getApplicationContext());//多语言
+    }
 }
