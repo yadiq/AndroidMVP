@@ -12,10 +12,8 @@ import com.hqumath.androidmvp.base.BaseActivity;
 import com.hqumath.androidmvp.databinding.ActivityMultilanguageBinding;
 import com.hqumath.androidmvp.databinding.LayoutTitleBinding;
 import com.hqumath.androidmvp.ui.login.LoginActivity;
-import com.hqumath.androidmvp.utils.LanguageUtil;
+import com.hqumath.androidmvp.utils.MultiLanguageUtil;
 import com.hqumath.androidmvp.utils.SPUtil;
-
-import java.util.Locale;
 
 public class MultiLanguageActivity extends BaseActivity {
 
@@ -36,10 +34,12 @@ public class MultiLanguageActivity extends BaseActivity {
         titleBinding.ivBack.setOnClickListener(v -> finish());
         binding.btnConfirm.setOnClickListener(v -> {
             int checkedId = binding.rgLanguage.getCheckedRadioButtonId();
-             if (checkedId == R.id.rbLanguageZh) {//简体中文
-                LanguageUtil.changeAppLanguage(mContext, new Locale("zh", "CN"), true);
-            } else if (checkedId == R.id.rbLanguageEn) {//英文
-                LanguageUtil.changeAppLanguage(mContext, new Locale("en", "US"), true);
+            if (checkedId == R.id.rbLanguageEnglish) {
+                MultiLanguageUtil.getInstance().updateLanguage(this, MultiLanguageUtil.LanguageType.LANGUAGE_EN);
+            } else if (checkedId == R.id.rbLanguageChineseSim) {
+                MultiLanguageUtil.getInstance().updateLanguage(this, MultiLanguageUtil.LanguageType.LANGUAGE_CHINESE_SIMPLIFIED);
+            } else if (checkedId == R.id.rbLanguageChineseTra) {
+                MultiLanguageUtil.getInstance().updateLanguage(this, MultiLanguageUtil.LanguageType.LANGUAGE_CHINESE_TRADITIONAL);
             }
             //重启app
             AppManager.getInstance().clear();
@@ -49,13 +49,16 @@ public class MultiLanguageActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        String language = sp.getString(Constant.SP_LANGUAGE, LanguageUtil.DEFAULT_LANGUAGE);
-        switch (language) {
-            case "zh":
-                binding.rbLanguageZh.setChecked(true);
+        int languageType = sp.getInt(Constant.LANGUAGE, MultiLanguageUtil.LanguageType.LANGUAGE_EN);
+        switch (languageType) {
+            case MultiLanguageUtil.LanguageType.LANGUAGE_EN:
+                binding.rbLanguageEnglish.setChecked(true);
                 break;
-            case "en":
-                binding.rbLanguageEn.setChecked(true);
+            case MultiLanguageUtil.LanguageType.LANGUAGE_CHINESE_SIMPLIFIED:
+                binding.rbLanguageChineseSim.setChecked(true);
+                break;
+            case MultiLanguageUtil.LanguageType.LANGUAGE_CHINESE_TRADITIONAL:
+                binding.rbLanguageChineseTra.setChecked(true);
                 break;
         }
     }

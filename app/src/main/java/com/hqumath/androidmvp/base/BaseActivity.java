@@ -1,13 +1,17 @@
 package com.hqumath.androidmvp.base;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.hqumath.androidmvp.utils.MultiLanguageUtil;
 
 /**
  * ****************************************************************
@@ -34,10 +38,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
     }
 
-    @Override
+    /*@Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         //Density.setAppOrientation(this);//横竖屏切换后，重新设置density
+    }*/
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MultiLanguageUtil.attachBaseContext(newBase));//多语言
     }
 
     protected abstract View initContentView(Bundle savedInstanceState);

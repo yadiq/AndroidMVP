@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">MVPDemo</string>
+
+    <!--登录界面-->
+    <string name="user_name">用户名</string>
+    <string name="password">密码(不校验)</string>
+    <string name="login">登录</string>
+    <string name="user_name_warning">用户名不正确!</string>
+    <string name="password_warning">密码不正确!</string>
+
+    <!--navigation-->
+    <string name="repos">倉庫</string>
+    <string name="follow">跟隨</string>
+    <string name="settings">設置</string>
+    <string name="about">關於</string>
+
+    <!--权限获取-->
+    <string name="permission_title">提示</string>
+    <string name="permission_failed_title">权限申请失败</string>
+    <string name="permission_failed_setting">去设置</string>
+    <string name="permission_failed_cancel">取消</string>
+    <string name="permission_always_failed_message">我们需要的一些权限被您拒绝，请您到设置页面手动授权，否则功能无法正常使用！\n\n%1$s</string>
+    <string name="permission_install_failed_message">请您授予安装未知应用权限，否则无法安装app</string>
+
+    <!--环形进度条-->
+    <declare-styleable name="DownloadingProgressBar">
+        <attr name="bga_pb_mode" format="enum">
+            <enum name="system" value="0" />
+            <enum name="horizontal" value="1" />
+            <enum name="circle" value="2" />
+            <enum name="comet" value="3" />
+            <enum name="wave" value="4" />
+        </attr>
+        <attr name="bga_pb_textColor" format="reference|color" />
+        <attr name="bga_pb_textSize" format="dimension" />
+        <attr name="bga_pb_textMargin" format="dimension" />
+        <attr name="bga_pb_reachedColor" format="reference|color" />
+        <attr name="bga_pb_reachedHeight" format="dimension" />
+        <attr name="bga_pb_unReachedColor" format="reference|color" />
+        <attr name="bga_pb_unReachedHeight" format="dimension" />
+        <attr name="bga_pb_isCapRounded" format="boolean" />
+        <attr name="bga_pb_isHiddenText" format="boolean" />
+        <attr name="bga_pb_radius" format="dimension" />
+    </declare-styleable>
+
+    <!--标题栏-->
+    <!--<declare-styleable name="HeaderBar">
+        <attr name="text_color" format="color" />
+        <attr name="center_text" format="string" />
+        <attr name="show_views">-->
+    <!--二进制或运算表示多个条件-->
+    <!--<flag name="left_img" value="0b1" />
+    <flag name="center_text" value="0b10" />
+    <flag name="right_img" value="0b100" />
+</attr>
+</declare-styleable>-->
+
+
+</resources>

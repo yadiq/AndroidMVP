@@ -14,23 +14,23 @@
         android:layout_height="wrap_content"
         android:padding="20dp">
 
-        <!--<RadioButton
-            android:id="@+id/rbLanguageAuto"
+        <RadioButton
+            android:id="@+id/rbLanguageEnglish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="跟随系统" />-->
+            android:text="English" />
 
         <RadioButton
-            android:id="@+id/rbLanguageZh"
+            android:id="@+id/rbLanguageChineseSim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="简体中文" />
 
         <RadioButton
-            android:id="@+id/rbLanguageEn"
+            android:id="@+id/rbLanguageChineseTra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="English" />
+            android:text="繁体中文" />
 
     </RadioGroup>
 

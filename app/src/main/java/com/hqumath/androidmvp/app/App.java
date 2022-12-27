@@ -3,13 +3,8 @@ package com.hqumath.androidmvp.app;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.hqumath.androidmvp.utils.CommonUtil;
-import com.hqumath.androidmvp.utils.LanguageUtil;
-import com.hqumath.androidmvp.utils.SPUtil;
-
-import java.util.Locale;
 
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.onAdaptListener;
@@ -73,7 +68,7 @@ public class App extends Application {
             //注册监听每个activity的生命周期,便于堆栈式管理
             AppManager.getInstance().addActivity(activity);
             //多语言切换
-            LanguageUtil.changeAppLanguageOnDifferent(activity);
+            //LanguageUtil.changeAppLanguageOnDifferent(activity);
         }
 
         @Override
