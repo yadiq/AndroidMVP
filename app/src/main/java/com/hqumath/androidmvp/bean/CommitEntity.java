@@ -281,7 +281,7 @@ public class CommitEntity {
 
             private boolean verified;
             private String reason;
-            private Object signature;
+            private LocationDTO signature;
             private Object payload;
 
             public boolean isVerified() {
@@ -300,11 +300,11 @@ public class CommitEntity {
                 this.reason = reason;
             }
 
-            public Object getSignature() {
+            public LocationDTO getSignature() {
                 return signature;
             }
 
-            public void setSignature(Object signature) {
+            public void setSignature(LocationDTO signature) {
                 this.signature = signature;
             }
 
@@ -315,6 +315,32 @@ public class CommitEntity {
             public void setPayload(Object payload) {
                 this.payload = payload;
             }
+        }
+    }
+
+    public static class LocationDTO {
+        /**
+         * type : Point
+         * coordinates : [117.18121745,36.44532063]
+         */
+
+        private String type;
+        private List<Double> coordinates;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public List<Double> getCoordinates() {
+            return coordinates;
+        }
+
+        public void setCoordinates(List<Double> coordinates) {
+            this.coordinates = coordinates;
         }
     }
 

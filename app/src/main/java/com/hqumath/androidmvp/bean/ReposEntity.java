@@ -20,7 +20,7 @@ public class ReposEntity {
      * name : AndroidMVP
      * full_name : Ninja2005/AndroidMVP
      * private : false
-     * owner : {"login":"Ninja2005","id":13248087,"node_id":"MDQ6VXNlcjEzMjQ4MDg3","avatar_url":"https://avatars3
+     * owner : {"login":"yadiq","id":13248087,"node_id":"MDQ6VXNlcjEzMjQ4MDg3","avatar_url":"https://avatars3
      * .githubusercontent.com/u/13248087?v=4","gravatar_id":"","url":"https://api.github.com/users/Ninja2005",
      * "html_url":"https://github.com/Ninja2005","followers_url":"https://api.github.com/users/Ninja2005/followers",
      * "following_url":"https://api.github.com/users/Ninja2005/following{/other_user}","gists_url":"https://api
